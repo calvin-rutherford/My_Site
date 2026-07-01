@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calvin Rutherford - Software Engineer Portfolio">
+    <title>Calvin Rutherford | Software Engineer</title>
+    <style>
+/* =========================================
+   CSS Variables & Theme Setup
+   ========================================= */
+:root {
+    /* Dark Theme (Default) */
+    --bg-color: #050505;
+    --surface-color: rgba(20, 20, 20, 0.6);
+    --surface-hover: rgba(30, 30, 30, 0.8);
+    --surface-border: rgba(255, 255, 255, 0.08);
+
+    --text-primary: #f0f0f0;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666;
+
+    --accent-color: #00ff66;
+    /* Matrix Green */
+    --accent-glow: rgba(0, 255, 102, 0.2);
+
+    --matrix-opacity: 0.15;
+}
+
+
+
+/* =========================================
+   Reset & Base Styles
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+}
+
+/* Matrix Background Canvas */
+#matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: var(--matrix-opacity);
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+a:hover {
+    text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* =========================================
+   Layout & Components
+   ========================================= */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.section {
+    margin-bottom: 6rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+}
+
+/* Glassmorphism Card Base */
+.card {
+    background: var(--surface-color);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--surface-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* =========================================
+   Profile Header
+   ========================================= */
+.profile-section {
+    padding: 6rem 0 4rem;
+    text-align: center;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.greeting-container {
+    height: 2rem;
+    margin-bottom: 2rem;
+    font-family: 'SF Mono', Consolas, Monaco, monospace;
+    color: var(--accent-color);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dynamic-greeting {
+    position: relative;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    background: var(--accent-glow);
+    animation: fadeInOut 2s infinite alternate;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 8px var(--accent-glow);
+    }
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   Experience Section
+   ========================================= */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+}
+
+.company {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.dates {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.position {
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* =========================================
+   Skills Section
+   ========================================= */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.skill-chip {
+    background: var(--surface-color);
+    border: 1px solid var(--surface-border);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.skill-chip:hover {
+    background: var(--surface-hover);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    color: var(--accent-color);
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+/* =========================================
+   Projects Section
+   ========================================= */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 600px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-desc {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--accent-glow);
+    color: var(--accent-color);
+    border-radius: 12px;
+}
+
+.project-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.project-link {
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 500;
+}
+
+.project-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* =========================================
+   Contact Section
+   ========================================= */
+.contact-card {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.contact-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.contact-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+.contact-btn.primary {
+    background: var(--accent-color);
+    color: #000;
+}
+
+.contact-btn.primary:hover {
+    background: #00cc52;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--accent-glow);
+}
+
+.contact-btn.secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--surface-border);
+}
+
+.contact-btn.secondary:hover {
+    background: var(--surface-hover);
+    border-color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 4rem;
+}
+
+/* =========================================
+   Responsive Adjustments
+   ========================================= */
+@media (max-width: 768px) {
+    .name {
+        font-size: 2.5rem;
+    }
+
+    .subtitle {
+        font-size: 1.25rem;
+    }
+
+    .container {
+        padding: 1.5rem;
+    }
+
+    .section {
+        margin-bottom: 4rem;
+    }
+
+    .theme-toggle {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Matrix Background -->
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
+
+
+
+    <main class="container">
+        <!-- Profile Section -->
+        <section class="profile-section" id="profile">
+            <h1 class="name">Calvin Rutherford</h1>
+            <h2 class="subtitle">Software Engineer</h2>
+            
+            <div class="greeting-container">
+                <span id="dynamic-greeting" class="dynamic-greeting" aria-live="polite">Knock knock, Neo.</span>
+            </div>
+
+            <div class="social-links">
+                <a href="https://github.com/calvin-rutherford" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/calvin-rutherford1/" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="mailto:contact@calvinrutherford.dev" aria-label="Email">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="section experience-section" id="experience">
+            <h3 class="section-title">Work Experience</h3>
+            <div class="timeline">
+                <div class="timeline-item card">
+                    <div class="timeline-header">
+                        <h4 class="company">Park My Ride</h4>
+                        <span class="dates">Summer 2026</span>
+                    </div>
+                    <div class="position">Backend Software Engineer</div>
+                    <p class="description">Developed REST APIs using Django and Django REST Framework. Implemented scalable models, serializers, and views for the Card and PolicyNotice systems. Gained hands-on experience in MVT architecture, ORM optimization, and deployment with Linux, Networking, and AWS.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section skills-section" id="skills">
+            <h3 class="section-title">Toolkit</h3>
+            <div class="skills-container">
+                <!-- Populated by JS for better management or hardcoded here. I'll hardcode for simplicity. -->
+                <div class="skill-chip"><span class="skill-icon">🐍</span> Python</div>
+                <div class="skill-chip"><span class="skill-icon">🕸️</span> Django</div>
+                <div class="skill-chip"><span class="skill-icon">🐘</span> PostgreSQL</div>
+                <div class="skill-chip"><span class="skill-icon">🐇</span> RabbitMQ</div>
+                <div class="skill-chip"><span class="skill-icon">🥬</span> Celery</div>
+                <div class="skill-chip"><span class="skill-icon">🟥</span> Redis</div>
+                <div class="skill-chip"><span class="skill-icon">🔐</span> JWT</div>
+                <div class="skill-chip"><span class="skill-icon">🐳</span> Docker</div>
+                <div class="skill-chip"><span class="skill-icon">🚢</span> Dokku</div>
+                <div class="skill-chip"><span class="skill-icon">☁️</span> AWS</div>
+                <div class="skill-chip"><span class="skill-icon">⚡</span> JavaScript</div>
+                <div class="skill-chip"><span class="skill-icon">🐧</span> Linux</div>
+                <div class="skill-chip"><span class="skill-icon">🌲</span> Git</div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section projects-section" id="projects">
+            <h3 class="section-title">Projects</h3>
+            <div class="projects-grid" id="projects-container">
+                <!-- Projects will be injected here by script.js -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section contact-section" id="contact">
+            <h3 class="section-title">Let's Connect</h3>
+            <div class="card contact-card">
+                <p>I'm always open to discussing new opportunities, interesting projects, or just talking tech.</p>
+                <div class="contact-links">
+                    <a href="mailto:contact@calvinrutherford.dev" class="contact-btn primary">Say Hello</a>
+                    <a href="#" class="contact-btn secondary" download>Resume PDF</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span> Calvin Rutherford. All rights reserved.</p>
+    </footer>
+
+
+
+    <script>
+/**
+ * Calvin Rutherford Portfolio Script
+ * Handles the interactive matrix background, dynamic project rendering,
+ * theme toggling, scroll animations, and dynamic greetings.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    initMatrixBg();
+    initGreetings();
+    renderProjects();
+    initScrollAnimations();
+    document.getElementById('year').textContent = new Date().getFullYear();
+});
+
+
+
+/* =========================================
+   Dynamic Greetings
+   ========================================= */
+function initGreetings() {
+    const greetings = [
+        'print("Knock knock, Neo.")',               // Python
+        'console.log("Knock knock, Neo.");',        // JavaScript
+        'System.out.println("Knock knock, Neo.");', // Java
+        'fmt.Println("Knock knock, Neo.")',         // Go
+        'echo "Knock knock, Neo.";',                // PHP
+        'printf("Knock knock, Neo.\\n");',          // C
+        'std::cout << "Knock knock, Neo.";',        // C++
+        'puts "Knock knock, Neo."',                 // Ruby
+        'println!("Knock knock, Neo.");',           // Rust
+    ];
+
+    const greetingElement = document.getElementById('dynamic-greeting');
+    let currentIndex = 0;
+
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % greetings.length;
+        // Fade out slightly
+        greetingElement.style.opacity = '0';
+
+        setTimeout(() => {
+            greetingElement.textContent = greetings[currentIndex];
+            greetingElement.style.opacity = '1';
+        }, 300); // Wait for fade out to change text
+
+    }, 3000); // Change every 3 seconds
+}
+
+/* =========================================
+   Project Rendering
+   ========================================= */
+const projects = [
+    {
+        title: "GiniCast",
+        description: "A research-driven data analytics platform designed for advanced income inequality visualization and socioeconomic data modeling.",
+        github: "https://github.com/calvin-rutherford/ginicast",
+        live: "#",
+        tags: ["Analytics", "Data Visualization", "Modeling"]
+    },
+    {
+        title: "Neural IO",
+        description: "An imagined speech data pipeline and AI-powered thought-to-text research project aimed at providing better accessibility on smartphones.",
+        github: "https://github.com/calvin-rutherford/neural-io",
+        live: "#",
+        tags: ["Python", "Machine Learning", "Accessibility", "Research"]
+    },
+    {
+        title: "Omnigent",
+        description: "An AI workforce platform featuring persistent AI agents, sophisticated task orchestration, and intelligent knowledge sharing systems. Built for scalable automation.",
+        github: "https://github.com/calvin-rutherford/Omnigent",
+        live: "#",
+        tags: ["Python", "AI", "Orchestration", "System Design"]
+    },
+    {
+        title: "OpenCrow",
+        description: "A personal AI intelligence feed that provides continuous information gathering, a voice-first interaction model, and a custom personal discovery engine.",
+        github: "https://github.com/calvinrutherford/opencrow",
+        live: "#",
+        tags: ["Voice AI", "Data Pipelines", "Discovery Engine"]
+    }
+];
+
+function renderProjects() {
+    const container = document.getElementById('projects-container');
+
+    projects.forEach(project => {
+        const tagsHtml = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+
+        // Link SVGs
+        const githubSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>`;
+        const externalLinkSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
+
+        const card = document.createElement('div');
+        card.className = 'card project-card';
+        card.innerHTML = `
+            <h4 class="project-title">${project.title}</h4>
+            <div class="project-tags">${tagsHtml}</div>
+            <p class="project-desc">${project.description}</p>
+            <div class="project-links">
+                <a href="${project.github}" class="project-link" target="_blank" rel="noopener noreferrer">${githubSvg} Code</a>
+                ${project.live !== '#' ? `<a href="${project.live}" class="project-link" target="_blank" rel="noopener noreferrer">${externalLinkSvg} Live</a>` : ''}
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+/* =========================================
+   Scroll Animations
+   ========================================= */
+function initScrollAnimations() {
+    const sections = document.querySelectorAll('.section');
+
+    // Respect reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sections.forEach(section => section.classList.add('visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Immediately show profile section without observer
+    const profileSection = document.getElementById('profile');
+    if (profileSection) profileSection.classList.add('visible');
+}
+
+/* =========================================
+   Matrix Canvas Background
+   ========================================= */
+function initMatrixBg() {
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+
+    // Check reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        canvas.style.display = 'none';
+        return;
+    }
+
+    let width, height;
+    let columns, drops;
+
+    const fontSize = 14;
+    // Standard matrix characters (Katakana + Latin + Numerals)
+    const charset = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    // Mouse interaction variables
+    let mouseX = -1000;
+    let mouseY = -1000;
+    const repulseRadius = 100;
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        columns = Math.floor(width / fontSize);
+
+        // Only initialize drops if not already done, to prevent flashing on resize
+        if (!drops || drops.length !== columns) {
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100; // Start at random negative heights to stagger entry
+            }
+        }
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Mouse / Touch Interaction tracking
+    function updateMousePos(e) {
+        if (e.touches && e.touches.length > 0) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        } else {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }
+    }
+
+    window.addEventListener('mousemove', updateMousePos);
+    window.addEventListener('touchmove', updateMousePos, { passive: true });
+
+    // Clear mouse position when it leaves
+    window.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; });
+    window.addEventListener('touchend', () => { mouseX = -1000; mouseY = -1000; });
+
+    let animationFrameId;
+    let lastDrawTime = 0;
+    const fps = 30; // Matrix looks better slightly slower
+    const frameInterval = 1000 / fps;
+
+    function draw(timestamp) {
+        // Pause animation if tab is hidden
+        if (document.hidden) {
+            animationFrameId = requestAnimationFrame(draw);
+            return;
+        }
+
+        const elapsed = timestamp - lastDrawTime;
+        if (elapsed < frameInterval) {
+            animationFrameId = requestAnimationFrame(draw);
+            return;
+        }
+
+        lastDrawTime = timestamp;
+
+        // Semi-transparent black to create fade effect
+        // The theme toggling relies on the CSS opacity of the canvas
+        // Here we just draw black, but we clear it to be transparent for light mode
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, width, height);
+
+        // For better visibility against different themes, we'll draw bright green text
+        // and CSS controls the overall canvas opacity.
+        ctx.font = fontSize + 'px monospace';
+        ctx.textAlign = 'center';
+
+        for (let i = 0; i < drops.length; i++) {
+            // Only draw if within screen
+            if (drops[i] * fontSize > -fontSize) {
+                const text = charset.charAt(Math.floor(Math.random() * charset.length));
+
+                let x = i * fontSize + (fontSize / 2);
+                let y = drops[i] * fontSize;
+
+                // Interaction physics
+                const dx = x - mouseX;
+                const dy = y - mouseY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                let alpha = 1;
+
+                if (distance < repulseRadius) {
+                    // Repel characters slightly
+                    const force = (repulseRadius - distance) / repulseRadius;
+                    const offsetX = (dx / distance) * force * 15; // Water ripple effect
+
+                    x += offsetX;
+
+                    // Highlight characters near the mouse
+                    ctx.fillStyle = '#fff';
+                    alpha = 1;
+                } else {
+                    // Normal color (Matrix Green)
+                    ctx.fillStyle = '#0f0';
+                    alpha = distance < repulseRadius * 2 ? 0.8 : 0.6;
+                }
+
+                ctx.globalAlpha = alpha;
+                ctx.fillText(text, x, y);
+                ctx.globalAlpha = 1.0; // reset
+            }
+
+            // Reset drop to top randomly
+            if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+
+        animationFrameId = requestAnimationFrame(draw);
+    }
+
+    animationFrameId = requestAnimationFrame(draw);
+}
+
+
+
+    </script>
+</body>
+</html>
