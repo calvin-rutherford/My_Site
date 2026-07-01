@@ -24,7 +24,7 @@
     /* Matrix Green */
     --accent-glow: rgba(0, 255, 102, 0.2);
 
-    --matrix-opacity: 0.15;
+    --matrix-opacity: 0.45;
 }
 
 
@@ -802,7 +802,7 @@ function initMatrixBg() {
                 } else {
                     // Normal color (Matrix Green)
                     ctx.fillStyle = '#0f0';
-                    alpha = distance < repulseRadius * 2 ? 0.8 : 0.6;
+                    alpha = distance < repulseRadius * 2 ? 0.9 : 0.8;
                 }
 
                 ctx.globalAlpha = alpha;
