@@ -304,6 +304,16 @@
             height: 100%;
         }
 
+        .project-card.featured {
+            grid-column: 1 / -1;
+        }
+
+        .project-status {
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+        }
+
         .project-title {
             font-size: 1.25rem;
             margin-bottom: 0.5rem;
@@ -552,7 +562,7 @@
         <section class="section projects-section" id="projects">
             <h3 class="section-title">Projects</h3>
             <div class="projects-grid" id="projects-container">
-                <!-- Projects will be injected here by script.js -->
+                <!-- Project cards are rendered by the inline script below. -->
             </div>
         </section>
 
@@ -578,8 +588,8 @@
     <script>
         /**
          * Calvin Rutherford Portfolio Script
-         * Handles the interactive matrix background, dynamic project rendering,
-         * theme toggling, scroll animations, and dynamic greetings.
+         * Handles the canvas background, project rendering, scroll animations
+         * and dynamic greetings.
          */
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -629,18 +639,27 @@
            ========================================= */
         const projects = [
             {
-                title: "GiniCast",
-                description: "A research-driven data analytics platform designed for advanced income inequality visualization and socioeconomic data modeling.",
-                github: "https://github.com/calvin-rutherford/ginicast",
-                live: "#",
-                tags: ["Analytics", "Data Visualization", "Modeling"]
+                title: "Magistrate",
+                status: "Engineering prototype · acceptance pending",
+                description: "An engineering-assistant prototype with an authenticated FastAPI gateway, shared Expo Chat/Voice state and explicit execution gates. Architecture and test evidence are documented; personal execution and live-device acceptance remain blocked.",
+                github: "https://github.com/calvin-rutherford/Magistrate",
+                caseStudy: "https://github.com/calvin-rutherford/Magistrate/blob/main/docs/portfolio-case-study.md",
+                featured: true,
+                tags: ["FastAPI", "Expo", "Authorization", "State & recovery"]
             },
             {
-                title: "Neural IO",
-                description: "An imagined speech data pipeline and AI-powered thought-to-text research project aimed at providing better accessibility on smartphones.",
-                github: "https://github.com/calvin-rutherford/neural-io",
-                live: "#",
-                tags: ["Python", "Machine Learning", "Accessibility", "Research"]
+                title: "GiniCast",
+                status: "Phase 1 · data acquisition",
+                description: "A Python pipeline for acquiring and standardizing economic indicators. Includes source adapters, a CLI and metadata audits; forecasting and interactive dashboards are future work.",
+                github: "https://github.com/calvin-rutherford/ginicast",
+                tags: ["Python", "Data pipelines", "CLI"]
+            },
+            {
+                title: "Sunset Sheriff",
+                status: "Godot game · local build",
+                description: "A town-defense game with procedural assets, an economy and checkpoint persistence. Includes native smoke tests and a static web export path. Build instructions are in the repository; no hosted playable demo is linked here.",
+                github: "https://github.com/calvin-rutherford/police-simulator",
+                tags: ["Godot 4.5", "GDScript", "Persistence"]
             }
         ];
 
@@ -655,14 +674,15 @@
                 const externalLinkSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
 
                 const card = document.createElement('div');
-                card.className = 'card project-card';
+                card.className = `card project-card${project.featured ? ' featured' : ''}`;
                 card.innerHTML = `
             <h4 class="project-title">${project.title}</h4>
+            <p class="project-status">${project.status}</p>
             <div class="project-tags">${tagsHtml}</div>
             <p class="project-desc">${project.description}</p>
             <div class="project-links">
                 <a href="${project.github}" class="project-link" target="_blank" rel="noopener noreferrer">${githubSvg} Code</a>
-                ${project.live !== '#' ? `<a href="${project.live}" class="project-link" target="_blank" rel="noopener noreferrer">${externalLinkSvg} Live</a>` : ''}
+                ${project.caseStudy ? `<a href="${project.caseStudy}" class="project-link" target="_blank" rel="noopener noreferrer">${externalLinkSvg} Case study</a>` : ''}
             </div>
         `;
                 container.appendChild(card);
