@@ -19,7 +19,7 @@ parent review checkpoint; no push was performed.
   tests with JDK 17/Maven before accepting this repo's build.
 - **system-operator-lab:** explicit-base merged checks and `git branch -d`,
   dry-run default, configurable transfer targets, NUL-delimited changed paths,
-  visible failures and nonzero exits. `bash -n scripts/*.sh` and all **12**
+  visible failures and nonzero exits. `bash -n` on each script and all **12**
   unittest cases passed in temporary Git repositories with fake SCP. No actual
   host transfer or real project branch deletion was performed.
 - **neural-io:** documented actual synthetic LSTM pipeline, preprocessing/split
