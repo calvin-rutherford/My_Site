@@ -23,9 +23,9 @@ in the HTML; project descriptions and links live in the inline `projects` array.
   test evidence. Personal execution and live/device acceptance remain blocked.
 - **GiniCast:** phase-one acquisition, standardization and audit pipeline.
   Forecasting and dashboards are roadmap items.
-- **Sunset Sheriff:** Godot town-defense game in the `police-simulator` repository,
-  with local build instructions and native tests. No hosted playable demo is
-  represented by a placeholder link.
+- **Neural IO:** synthetic-signal classification prototype with preprocessing and
+  a PyTorch LSTM baseline. Agent-control integration alongside Magistrate is a
+  future goal; real EEG and imagined-speech decoding are not demonstrated.
 
 Before publishing, check the page at phone and desktop widths, follow project
 and resume links, review current repository status, and confirm career/contact
