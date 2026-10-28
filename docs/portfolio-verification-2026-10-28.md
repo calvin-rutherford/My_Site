@@ -1,12 +1,9 @@
 # Local portfolio preparation — 2026-10-28
 
-Work ran as `spectre` on `melkezic-dev-01` in
-`/home/spectre/Documents/Codex/2026-10-28/task`. All changes use isolated local
-checkouts on `codex/portfolio-polish-2026-10-28`. Existing personal checkouts and
-active worktrees were inspected before changes and left in place. No employer
-repository or work VM was opened. No publication or remote metadata change was
-performed. The later permission to publish remains subject to the requested
-parent review checkpoint; no push was performed.
+This report records bounded local verification of the portfolio changes.
+Application tests, external integration, deployment and physical-device
+acceptance are separate evidence classes. Results below do not imply production
+readiness.
 
 ## Changes and executed verification
 
@@ -56,7 +53,7 @@ parent review checkpoint; no push was performed.
   successfully. Initial restricted execution emitted socket/editor-settings
   errors despite passing checks; the final run allowed local sockets and used a
   checkout-local config cache, with no ERROR/WARNING lines. The final run reused
-  existing official engine/template files on this VM; fresh CI download and the
+  existing official engine/template files in the validation environment; fresh CI download and the
   hosted workflow itself have not run. New browser-game testing was not performed.
 
 Godot's existing export script cleans generated `public/` output (preserving
@@ -69,9 +66,6 @@ Vercel bot Production deployments, most recently of the exact current main SHA
 site publication until current Vercel integration settings are verified; no push
 or deployment was performed. Feature-branch pushes may also create Vercel previews.
 
-No repository commit hook or configured hooksPath was present in the isolated
-checkouts. No no-mistakes pipeline was started because its delivery stages would
-push/open a PR, outside this local-only scope.
 
 ## Magistrate: read-only fresh status
 
@@ -103,21 +97,18 @@ on the final composed candidate. Do not duplicate the existing remediation lane.
 
 Personal runtime enforcement still needs producer/consumer integration and
 acceptance of the required worker/spend envelope; exported contracts alone do not
-provide it. The existing `codex/personal-runtime-admission` worktree has staged
-implementation/tests and was left untouched. Final integration must preserve that
-work and test its own exact composition. Live execution, actual isolation/spend,
+provide it. Runtime-admission implementation remains a separate workstream. Final integration
+must test its own exact composition. Live execution, actual isolation/spend,
 macOS/native integrations, signed iPhone build, physical notification/voice flows,
 and the end-to-end phone-to-verified-artifact acceptance remain separate evidence
 gates. No test or runtime action was run in Magistrate by this task.
 
-## Publication steps after independent review
+## Remaining verification
 
-Review each isolated branch diff. Run Vitatrix's Java suite and the hosted Sunset
-workflow after publication; refresh any time-sensitive project claims. Review
-and publish the local profile/About/topics proposals only when their referenced
-README changes are available. The user later authorized GitHub publication, profile-repository creation and
-accurate metadata updates, but the parent requested a review checkpoint before
-any push. No remote publication occurred. Vercel site publication needs an
-explicit decision after the integration finding above; Magistrate PR128 retains
-its separate review/merge boundary. Repository visibility, licensing, renaming,
-archiving and access changes remain outside scope.
+Run Vitatrix's Java suite with JDK 17/Maven and verify Sunset Sheriff's hosted
+workflow after publication. Refresh time-sensitive project claims before future
+release decisions. The profile/About/topics text describes implemented behavior;
+it does not establish adoption, security certification or production readiness.
+My_Site publication remains a separate decision because its Git integration can
+trigger Vercel publication. Magistrate PR128 retains its independent security and
+integration review requirements.
