@@ -308,6 +308,46 @@
             grid-column: 1 / -1;
         }
 
+        .architecture {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 0 0 1.5rem;
+        }
+
+        .architecture-node {
+            position: relative;
+            padding: 0.8rem;
+            border: 1px solid var(--surface-border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .architecture-node strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .architecture-node:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -0.85rem;
+            top: 40%;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 599px) {
+            .architecture { grid-template-columns: 1fr; }
+            .architecture-node:not(:last-child)::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -1.1rem;
+            }
+        }
+
         .project-status {
             color: var(--accent-color);
             font-size: 0.8rem;
@@ -657,7 +697,7 @@
             {
                 title: "Sunset Sheriff",
                 status: "Godot game · local build",
-                description: "A town-defense game with procedural assets, an economy and checkpoint persistence. Includes native smoke tests and a static web export path. Build instructions are in the repository; no hosted playable demo is linked here.",
+                description: "A town-defense game with procedural assets, an economy and checkpoint persistence. Native smoke tests exercise the game rules and saves; the repository includes a static web export path and local build instructions.",
                 github: "https://github.com/calvin-rutherford/police-simulator",
                 tags: ["Godot 4.5", "GDScript", "Persistence"]
             }
@@ -680,6 +720,11 @@
             <p class="project-status">${project.status}</p>
             <div class="project-tags">${tagsHtml}</div>
             <p class="project-desc">${project.description}</p>
+            ${project.featured ? `<div class="architecture" role="group" aria-label="Magistrate conversation and state path">
+                <div class="architecture-node"><strong>Expo client</strong>Shared Chat / Voice</div>
+                <div class="architecture-node"><strong>FastAPI gateway</strong>Authenticated APIs</div>
+                <div class="architecture-node"><strong>Canonical stores</strong>Messages &amp; structured state</div>
+            </div>` : ''}
             <div class="project-links">
                 <a href="${project.github}" class="project-link" target="_blank" rel="noopener noreferrer">${githubSvg} Code</a>
                 ${project.caseStudy ? `<a href="${project.caseStudy}" class="project-link" target="_blank" rel="noopener noreferrer">${externalLinkSvg} Case study</a>` : ''}

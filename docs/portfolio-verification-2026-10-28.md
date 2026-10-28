@@ -5,7 +5,8 @@ Work ran as `spectre` on `melkezic-dev-01` in
 checkouts on `codex/portfolio-polish-2026-10-28`. Existing personal checkouts and
 active worktrees were inspected before changes and left in place. No employer
 repository or work VM was opened. No publication or remote metadata change was
-performed.
+performed. The later permission to publish remains subject to the requested
+parent review checkpoint; no push was performed.
 
 ## Changes and executed verification
 
@@ -61,6 +62,13 @@ performed.
 Godot's existing export script cleans generated `public/` output (preserving
 `.gitkeep`) and downloads official tooling if absent. Existing `vercel.json`
 contains build configuration, but no publisher/deployment command was invoked.
+My_Site has no GitHub Actions workflows and GitHub Pages is disabled, but its
+API homepage is `https://calvinrutherford.vercel.app`. Deployment history shows
+Vercel bot Production deployments, most recently of the exact current main SHA
+`534dd53af8efd29de353a7be54eb9cd7988e4daa`. Treat a default-branch push as potential
+site publication until current Vercel integration settings are verified; no push
+or deployment was performed. Feature-branch pushes may also create Vercel previews.
+
 No repository commit hook or configured hooksPath was present in the isolated
 checkouts. No no-mistakes pipeline was started because its delivery stages would
 push/open a PR, outside this local-only scope.
@@ -102,10 +110,14 @@ macOS/native integrations, signed iPhone build, physical notification/voice flow
 and the end-to-end phone-to-verified-artifact acceptance remain separate evidence
 gates. No test or runtime action was run in Magistrate by this task.
 
-## Publication steps requiring later authorization
+## Publication steps after independent review
 
 Review each isolated branch diff. Run Vitatrix's Java suite and the hosted Sunset
 workflow after publication; refresh any time-sensitive project claims. Review
 and publish the local profile/About/topics proposals only when their referenced
-README changes are available. Push/open PRs, merging, deployment, repository or
-access changes remain outside this preparation and were not performed.
+README changes are available. The user later authorized GitHub publication, profile-repository creation and
+accurate metadata updates, but the parent requested a review checkpoint before
+any push. No remote publication occurred. Vercel site publication needs an
+explicit decision after the integration finding above; Magistrate PR128 retains
+its separate review/merge boundary. Repository visibility, licensing, renaming,
+archiving and access changes remain outside scope.

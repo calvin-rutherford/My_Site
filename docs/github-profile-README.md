@@ -18,6 +18,20 @@ recovery and the gap between a passing test and a working release.
   Godot 4.5 town-defense game with procedural assets, an economy and checkpoint
   persistence. The repository contains local build and validation instructions.
 
+## A closer look: Magistrate
+
+```mermaid
+flowchart LR
+    Client[Expo Chat / Voice] --> Gateway[Authenticated FastAPI gateway]
+    Gateway --> Store[Canonical messages and structured state]
+    Gateway --> Gate{Execution admission}
+    Gate --> Refusal[Personal dispatch currently closed]
+```
+
+The interesting boundary is between conversation, persisted progress and actual
+execution authority. The case study records what the code demonstrates and what
+still needs independent integration and live acceptance.
+
 ## Smaller experiments
 
 [Vitatrix](https://github.com/calvin-rutherford/Vitatrix) explores a Spring Boot
