@@ -30,10 +30,9 @@ readiness.
   provenance limits, future punctuation work, and pinned dependencies. Fresh
   installation and full training/CV/holdout reporting passed in a temporary
   directory. Streamlit AppTest passed load/classify/probability-table/blank-input
-  checks. No committed model was overwritten. The initial AppTest runner used a
-  relative path resolved against `/tmp`; after correcting it to the absolute
-  temporary script path, the entire check passed. This was a test harness path
-  error, not an app fix or a measured quality claim.
+  checks. No committed model was overwritten. A test-harness path-resolution
+  error was corrected before the successful run; no app change or measured
+  quality claim is implied.
 - **My_Site:** inspected original rendered layout; kept the dark cyan design;
   replaced project cards with Magistrate, honest phase-one GiniCast and Sunset
   Sheriff. Added local-preview README. HTML parsing, unique IDs, local resume
@@ -53,18 +52,23 @@ readiness.
   successfully. Initial restricted execution emitted socket/editor-settings
   errors despite passing checks; the final run allowed local sockets and used a
   checkout-local config cache, with no ERROR/WARNING lines. The final run reused
-  existing official engine/template files in the validation environment; fresh CI download and the
-  hosted workflow itself have not run. New browser-game testing was not performed.
+  existing official engine/template files in the validation environment. The
+  [hosted Godot workflow](https://github.com/calvin-rutherford/police-simulator/actions/runs/40752439156)
+  subsequently completed successfully on `cc731598f6668da4354142e32848c31ecde74efc`,
+  exercising the fresh build path. New browser-game testing was not performed.
 
 Godot's existing export script cleans generated `public/` output (preserving
 `.gitkeep`) and downloads official tooling if absent. Existing `vercel.json`
 contains build configuration, but no publisher/deployment command was invoked.
-My_Site has no GitHub Actions workflows and GitHub Pages is disabled, but its
-API homepage is `https://calvinrutherford.vercel.app`. Deployment history shows
-Vercel bot Production deployments, most recently of the exact current main SHA
-`534dd53af8efd29de353a7be54eb9cd7988e4daa`. Treat a default-branch push as potential
-site publication until current Vercel integration settings are verified; no push
-or deployment was performed. Feature-branch pushes may also create Vercel previews.
+My_Site has no GitHub Actions workflows and GitHub Pages is disabled. Its
+Vercel Production deployment of `6cd0a51686ed305ef4ff24fb66a0e1a5ab8397ce`
+completed successfully on 2026-10-28. The public portfolio at
+<https://calvinrutherford.vercel.app> returned HTTP 200 and served HTML matching
+that tested source byte-for-byte. Live browser inspection confirmed the three
+flagship cards and architecture visual. Subsequent documentation-only updates
+do not change the tested HTML. Deployment success does not verify unrelated
+contact details, resume contents or product runtime claims.
+
 
 
 ## Magistrate: read-only fresh status
@@ -105,10 +109,9 @@ gates. No test or runtime action was run in Magistrate by this task.
 
 ## Remaining verification
 
-Run Vitatrix's Java suite with JDK 17/Maven and verify Sunset Sheriff's hosted
-workflow after publication. Refresh time-sensitive project claims before future
+Run Vitatrix's Java suite with JDK 17/Maven. Refresh time-sensitive project claims before future
 release decisions. The profile/About/topics text describes implemented behavior;
 it does not establish adoption, security certification or production readiness.
-My_Site publication remains a separate decision because its Git integration can
-trigger Vercel publication. Magistrate PR128 retains its independent security and
+My_Site publication was separately authorized; its Git integration can trigger
+Vercel publication on later pushes. Magistrate PR128 retains its independent security and
 integration review requirements.
